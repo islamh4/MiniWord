@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Documents;
+using System.Text;
 
 namespace MiniWord
 {
@@ -13,8 +14,8 @@ namespace MiniWord
         public Form1()
         {
             InitializeComponent();
-            openFileDialog1.Filter = "(*.txt)|*.txt|(*.rtf)|*.rtf";
-            saveFileDialog1.Filter = "(*.txt)|*.txt|(*.rtf)|*.rtf";
+            openFileDialog1.Filter = "(*.rtf)|*.rtf";
+            saveFileDialog1.Filter = "(*.rtf)|*.rtf";
             ComboBoxShrift.Items.AddRange(FontFamily.Families.Select(a => a.Name).ToArray());
             for (int i = 8; i <= 72; i += 2)
             {
@@ -27,8 +28,7 @@ namespace MiniWord
         {
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
-            tbMessage.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
-         //   tbMessage.Text = File.ReadAllText(openFileDialog1.FileName);
+            tbMessage.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.RichText);
             MessageBox.Show("File open!");
         }
 
@@ -37,7 +37,6 @@ namespace MiniWord
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             tbMessage.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.RichText);
-            //File.WriteAllText(saveFileDialog1.FileName, tbMessage.Text);
             MessageBox.Show("File save!");
         }
         private void Bold_Click(object sender, EventArgs e)
